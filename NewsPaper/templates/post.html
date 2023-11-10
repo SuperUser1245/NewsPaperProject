@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+<br>
+<hr>
+<h2>{{ post.post_title }}</h2>
+<h6 style = "position:relative; left:395px; ">{{ post.post_time|date:'H:i, d M y '}}</h6><br>
+<h3 align="justify">{{ post.post_content|censor}}</h3>
+{% endblock content %}

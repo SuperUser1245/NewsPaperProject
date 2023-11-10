@@ -1,0 +1,53 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+
+<form action="" method="get">
+    {{ filterset.form.as_p }}
+    <input type="submit" value="Найти" />
+</form>
+
+{% if posts %}
+    <h1 style = "position:relative; right:320px; ">Posts:</h1>
+    <h4 style = "position:relative; right:320px; " >There are {{ posts|length}} posts available</h4>
+    <hr>
+    {% for post in posts %}
+        <table>
+            <tr align="justify">
+                <th>{{ post.post_title}}</th>
+            </tr>
+            <tr align="justify">
+                <td>{{ post.post_time|date:'H:i, d M y '}}</td>
+            </tr>
+            <tr align="justify">
+                <td>{{ post.post_content|truncatechars:20 }}</td>
+            </tr><br>
+        </table>
+    {% endfor %}
+{% else %}
+    <h2>there are no posts</h2>
+{% endif %}
+
+{% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+{% endblock content %}
