@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.core.mail import EmailMultiAlternatives
 
 
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post

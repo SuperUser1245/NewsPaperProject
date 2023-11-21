@@ -9,6 +9,9 @@ from django.db.models import Exists, OuterRef
 from django.shortcuts import render
 from .models import Subscriber
 from django.views.decorators.csrf import csrf_protect
+from .models import Post
+from .forms import PostForm
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 @login_required
@@ -37,6 +40,8 @@ def subscriptions(request):
     ).order_by('category_name')
 
     return render(request, 'subscriptions.html', {'categories': categories_with_subscriptions},)
+
+
 
 
 class PostList(ListView):

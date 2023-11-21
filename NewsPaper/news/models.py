@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     author_rating = models.IntegerField(default=0)
@@ -73,10 +74,10 @@ class Post(models.Model):
         return reverse('post_detail', args=[str(self.id)])
 
 
+
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
 
 
 class Comment(models.Model):
@@ -98,3 +99,4 @@ class Comment(models.Model):
 class Subscriber(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subscriber')
+
