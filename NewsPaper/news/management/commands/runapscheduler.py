@@ -1,3 +1,4 @@
+import datetime
 import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -14,14 +15,14 @@ logger = logging.getLogger(__name__)
 
 
 def my_job():
-    posts = Post.objects.filter(post_time__gte='2023-11-17 16:30:42.347581')
+    posts = Post.objects.filter(post_time__gte=datetime.timedelta(days=7))
     posts_cat = list(posts.values_list('categories', flat=True))
     users = set(Subscriber.objects.filter(category__in=posts_cat).values_list('user_id', flat=True))
     for user in users:
         subs_cat = list(Subscriber.objects.filter(user_id=user).values_list('category_id', flat=True))
         subs_posts = list(posts.filter(categories__in=subs_cat).values_list('post_title', 'id'))
         user_email = list(User.objects.filter(id=user).values_list('email', flat=True))
-        print(subs_posts)
+
 
         html_content = render_to_string(
             'scheduler_app.html',

@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+<<<<<<< HEAD
     'django_apscheduler',
+=======
+>>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
 
 ]
 
@@ -84,6 +87,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+<<<<<<< HEAD
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
@@ -96,6 +100,8 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/posts/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+=======
+>>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
 WSGI_APPLICATION = 'NewsPaper.wsgi.application'
 
 # Database
@@ -142,6 +148,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+<<<<<<< HEAD
+=======
+# Default primary key field type
+>>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -149,3 +159,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+<<<<<<< HEAD
+=======
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+LOGIN_REDIRECT_URL = '/posts/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/posts/'
+
+
+ACCOUNT_FORMS = {"signup": "news.forms.CustomSignupForm"}
+>>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
