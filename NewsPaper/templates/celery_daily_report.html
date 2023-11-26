@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Posts</title>
+</head>
+<body>
+    <h3>HI, there is a new post in category you're subscribed to:</h3>
+    <ul>
+    {% for title,id_post in subs_posts %}
+        {{post}}
+        <li>
+            <a href="http://127.0.0.1:8000/posts/{{ id_post }}">{{ title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
