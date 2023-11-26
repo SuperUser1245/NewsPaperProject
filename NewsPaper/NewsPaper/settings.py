@@ -43,10 +43,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
-<<<<<<< HEAD
     'django_apscheduler',
-=======
->>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
+
 
 ]
 
@@ -87,7 +85,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-<<<<<<< HEAD
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
@@ -100,8 +98,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/posts/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-=======
->>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
+
 WSGI_APPLICATION = 'NewsPaper.wsgi.application'
 
 # Database
@@ -111,6 +108,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'USE_TZ': True,
     }
 }
 
@@ -137,40 +135,23 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Bucharest'
 
 USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = 'static/'
 
-<<<<<<< HEAD
-=======
-# Default primary key field type
->>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
-<<<<<<< HEAD
-=======
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-LOGIN_REDIRECT_URL = '/posts/'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/posts/'
-
-
-ACCOUNT_FORMS = {"signup": "news.forms.CustomSignupForm"}
->>>>>>> 8a8e3c46de2f059690927f9faa26e440bfc57bc7
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
