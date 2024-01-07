@@ -178,7 +178,7 @@ LOGGING = {
         },
     },
 
-    'formatters': {
+    'formatters' : {
         'simple': {
             'format': '%(levelname)s %(message)s %(asctime)s'
         },
