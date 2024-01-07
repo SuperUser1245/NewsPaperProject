@@ -13,20 +13,39 @@ Posts
 </form>
 
 {% if posts %}
-    <h1 style = "position:relative; right:320px; ">Posts:</h1>
-    <h4 style = "position:relative; right:320px; " >There are {{ posts|length}} posts available</h4>
+<!--    <h4 style = "position:relative; right:320px; " >There are {{ posts|length}} posts available</h4>-->
+    <table>
+        {% if perms.simpleapp.add_product %}
+        <tr style = "position:relative; left:788px; top:15px;">
+            <td>
+                <span>
+                    <a href="news/create/"><button style = "border:none;background-color:white;font-size:20px;"><b>Add News</b></button></a> or
+                    <a href="articles/create/"><button style = "border:none;background-color:white;font-size:20px;"><b>Add Article</b></button></a>
+                </span>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+
     <hr>
     {% for post in posts %}
         <table>
             <tr align="justify">
-                <th>{{ post.post_title}}</th>
+                <th><a style="text-decoration:none;color:black;" href="{{ post.get_absolute_url }}">{{ post.post_title}}</a></th>
             </tr>
             <tr align="justify">
                 <td>{{ post.post_time|date:'H:i, d M y '}}</td>
             </tr>
             <tr align="justify">
                 <td>{{ post.post_content|truncatechars:20 }}</td>
-            </tr><br>
+            </tr>
+            {% if perms.simpleapp.add_product %}
+            <tr>
+                <td align="justify"><p><a href="{{post.id}}/edit"><button style = "border:none;background-color:white;"><i>Edit</i></button></a>  <a href="{{post.id}}/delete"><button style = "border:none;background-color:white;"><i>Delete</i></button></a></p></td>
+            </tr>
+            {% else %}
+            <br>
+            {% endif %}
         </table>
     {% endfor %}
 {% else %}

@@ -3,19 +3,18 @@ from django import template
 
 register = template.Library()
 
-badwords = {
-    'ni***': 'nigga',
-    'ni****': 'nigger'
-}
+badwords = {'Elon',}
 
 
-@register.filter()
+@register.filter
 def censor(post_content):
+    result = []
     for badword in badwords:
-        if badwords[badword] in post_content:
-            post_content = post_content.replace(badwords[badword], badword, 1000)
-            return post_content
+        if badword in post_content:
+            vad = badword[0] + "*" * (len(badword) - 2) + badword[-1]
+            post_content = post_content.replace(badword, vad)
+            result = post_content
         else:
-            return post_content
-    return post_content
+            result = post_content
+    return result
 

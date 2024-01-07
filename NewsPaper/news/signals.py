@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
-from .models import Post, Subscriber
+from .models import Post
 
 
 @receiver(m2m_changed, sender=Post.categories.through)
@@ -13,7 +13,7 @@ def post_created(instance, action, **kwargs):
 
         text_content = (
             f'A new post available: {instance.post_title}\n'
-            f'Link: http://127.0.0.1:8000{instance.get_absolute_url()}'
+            f'Link: {instance.get_absolute_url}'
         )
         html_content = (
             f'A new post available: {instance.post_title}<br>'

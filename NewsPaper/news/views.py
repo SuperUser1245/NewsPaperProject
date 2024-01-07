@@ -1,17 +1,14 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .filters import PostFilter
-from .models import Post, Category
+from .models import Post, Category, Subscriber
 from .forms import PostForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Exists, OuterRef
 from django.shortcuts import render
-from .models import Subscriber
 from django.views.decorators.csrf import csrf_protect
-from .models import Post
-from .forms import PostForm
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.cache import cache
 
 
 @login_required
@@ -40,8 +37,6 @@ def subscriptions(request):
     ).order_by('category_name')
 
     return render(request, 'subscriptions.html', {'categories': categories_with_subscriptions},)
-
-
 
 
 class PostList(ListView):

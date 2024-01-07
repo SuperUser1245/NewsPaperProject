@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+
 ]
 
 ROOT_URLCONF = 'NewsPaper.urls'
@@ -85,6 +86,12 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache_files'),
+    }
+}
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -155,3 +162,126 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+
+LOGGING = {
+
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s %(asctime)s'
+        },
+        'medium': {
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s'
+        },
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s %(exc_info)s'
+        },
+        'info-log': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+        'error-log': {
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s %(exc_info)s'
+        },
+
+
+    },
+
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'warning_console': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'medium'
+        },
+        'error_console': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'info_log': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'info-log',
+            'filename': 'general.log'
+        },
+        'error_log': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'error-log',
+            'filename': 'errors.log'
+        },
+        'security_log': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'info-log',
+            'filename': 'security.log'
+        },
+        'mail_admin': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'medium',
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'warning_console', 'error_console', 'info_log'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['error_log', 'mail_admin'],
+            'level': 'ERROR',
+            'propagate': True,
+
+        },
+        'django.server': {
+            'handlers': ['error_log', 'mail_admin'],
+            'level': 'ERROR',
+            'propagate': True,
+
+        },
+        'django.template': {
+            'handlers': ['error_log'],
+            'level': 'ERROR',
+            'propagate': True,
+
+        },
+        'django.db.backends': {
+            'handlers': ['error_log'],
+            'level': 'ERROR',
+            'propagate': True,
+
+        },
+        'django.security': {
+            'handlers': ['security_log'],
+            'level': 'DEBUG',
+            'propagate': True,
+
+        },
+
+    },
+}

@@ -6,7 +6,7 @@ from news.views import subscriptions
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path('posts/', include('news.urls')),
+    path('', include('news.urls')),
     path('subscriptions/', subscriptions)
 
 ]

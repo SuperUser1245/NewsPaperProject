@@ -8,22 +8,35 @@ Posts
 {% block content %}
 
 {% if posts %}
-    <h1 style = "position:relative; right:320px; ">Posts:</h1>
-    <h4 style = "position:relative; right:320px; " >There are {{ posts|length}} posts available</h4>
+<!--    <h4 style = "position:relative; right:320px; " >There are {{ posts|length}} posts available</h4>-->
     <table>
-        <tr>
-            <td><a href="search/" style = "position:relative; left:198px; top:10px; "><button>Filter</button></a></td>
-            {% if perms.simpleapp.add_product %}
-            <td style = "position:relative; left:780px; top:25px; "><p><a href="news/create/"><button style = "border:none;background-color:white;"><b>Add News</b></button></a> or <a href="articles/create/"><button style = "border:none;background-color:white;"><b>Add Article</b></button></a></p></td>
-            {% endif %}
+        {% if perms.simpleapp.add_product %}
+        <tr style = "position:relative; left:788px; top:15px;">
+            <td>
+                <span><a href="search/"><button style = "border:none;background-color:white;font-weight:bold;font-size:20px;">Filter   |</button></a></span>
+            </td>
+
+            <td>
+                <span>
+                    <a href="news/create/"><button style = "border:none;background-color:white;font-size:20px;"><b>Add News</b></button></a> or
+                    <a href="articles/create/"><button style = "border:none;background-color:white;font-size:20px;"><b>Add Article</b></button></a>
+                </span>
+            </td>
         </tr>
+        {% else %}
+        <tr style = "position:relative; left:900px; top:15px; ">
+            <td>
+                <span><a href="search/"><button style = "border:none;background-color:white;font-weight:bold;font-size:20px;">Filter</button></a></span>
+            </td>
+        </tr>
+        {% endif %}
     </table>
 
     <hr>
     {% for post in posts %}
         <table>
             <tr align="justify">
-                <th>{{ post.post_title}}</th>
+                <th><a style="text-decoration:none;color:black;" href="{{ post.get_absolute_url }}">{{ post.post_title}}</a></th>
             </tr>
             <tr align="justify">
                 <td>{{ post.post_time|date:'H:i, d M y '}}</td>

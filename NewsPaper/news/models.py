@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import Sum
 from django.urls import reverse
 from django.utils import timezone
-
+from django.core.cache import cache
 
 
 class Author(models.Model):
